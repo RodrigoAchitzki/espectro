@@ -1,0 +1,16 @@
+{
+  "name": "Espectro",
+  "short_name": "Espectro",
+  "description": "Câmera de caça paranormal no estilo Kinect.",
+  "lang": "pt-BR",
+  "start_url": "./espectro.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#030405",
+  "theme_color": "#030405",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}
