@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#030405">
+<title>Espectro: a câmera de caça paranormal no seu celular</title>
+<meta name="description" content="Transforme o celular numa filmadora de caça paranormal: detecção de figuras, movimento, som, vibração e campo magnético. Funciona no navegador, sem instalar nada.">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=VT323&display=swap" rel="stylesheet">
+<style>
+:root{--void:#030405;--phos:#BFE8CF;--soft:#9FB8AA;--dim:#6F8478;--blood:#D9233A;--line:rgba(191,232,207,.14);
+  --title:"IM Fell English","Iowan Old Style",Georgia,serif;--osd:"VT323",ui-monospace,"SF Mono",Menlo,monospace;
+  color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--void);color:var(--phos);font-family:var(--osd);font-size:21px;line-height:1.3;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--void)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.25) 0 1px,transparent 1px 3px),radial-gradient(ellipse 90% 80% at 50% 40%,transparent 50%,rgba(0,0,0,.7) 100%)}
+a{color:inherit}
+main{max-width:46rem;margin:0 auto;padding:0 22px 40px}
+.hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:40px 0}
+.rec{color:var(--blood);font-size:1.3rem;letter-spacing:.08em}
+.rec span{animation:b 1s steps(1) infinite}@keyframes b{50%{opacity:0}}
+h1{font-family:var(--title);font-style:italic;font-weight:400;font-size:clamp(4rem,20vw,7.5rem);line-height:.9;margin:.2em 0 .15em;color:#DDEFE4;text-shadow:0 0 26px rgba(191,232,207,.25)}
+.lead{font-family:var(--title);font-style:italic;font-size:clamp(1.35rem,5vw,1.7rem);color:var(--soft);max-width:30ch;margin:0 auto 2rem;line-height:1.35}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;text-decoration:none;border:1px solid rgba(217,35,58,.6);background:rgba(217,35,58,.12);border-radius:999px;padding:.8rem 1.6rem;font-size:1.45rem;color:#F4D9DD}
+.cta i{width:.75rem;height:.75rem;border-radius:50%;background:var(--blood);box-shadow:0 0 12px var(--blood)}
+.sub{margin-top:1rem;color:var(--dim);font-size:1.05rem}
+h2{font-family:var(--title);font-style:italic;font-weight:400;font-size:clamp(2.2rem,8vw,3rem);color:#DDEFE4;margin:3.5rem 0 1rem;line-height:1}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:10px}
+.cell{border:1px solid var(--line);border-radius:6px;padding:14px 16px}
+.cell b{display:block;font-weight:400;font-size:1.35rem;color:#E6F5EC}
+.cell span{color:var(--soft);font-size:1.1rem}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:2.4rem 1fr;gap:.6rem;padding:.7rem 0;border-bottom:1px solid var(--line);color:var(--soft)}
+ol.steps li::before{content:counter(s,decimal-leading-zero);color:var(--blood)}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:10px}
+.plan{border:1px solid var(--line);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:.5rem}
+.plan.best{border-color:rgba(217,35,58,.6);background:rgba(217,35,58,.06)}
+.plan h3{margin:0;font-weight:400;font-size:1.6rem;color:#DDEFE4}
+.price{font-size:2.4rem;color:#E6F5EC;line-height:1}
+.price small{font-size:1rem;color:var(--dim)}
+.plan ul{margin:0;padding-left:1.1rem;color:var(--soft);font-size:1.1rem;flex:1}
+.buy{display:block;text-align:center;text-decoration:none;border:1px solid var(--line);border-radius:4px;padding:.6rem;color:#DDEFE4}
+.best .buy{border-color:rgba(217,35,58,.6);background:rgba(217,35,58,.14);color:#F4D9DD}
+details{border-bottom:1px solid var(--line);padding:.7rem 0}
+summary{cursor:pointer;color:#E6F5EC;font-size:1.25rem}
+details p{color:var(--soft);margin:.5rem 0 0}
+footer{text-align:center;color:var(--dim);font-size:1rem;padding:40px 0 20px}
+:focus-visible{outline:2px solid var(--blood);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.rec span{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="rec"><span>●</span> REC 00:03:12</div>
+    <h1>Espectro</h1>
+    <p class="lead">Transforme o celular numa filmadora de caça paranormal. Apague as luzes e veja o que aparece.</p>
+    <div><a class="cta" href="espectro.html"><i></i>Abrir o app grátis</a></div>
+    <p class="sub">Funciona no navegador do iPhone e do Android. Sem instalar nada.</p>
+  </section>
+
+  <h2>Seis sentidos ligados</h2>
+  <div class="grid">
+    <div class="cell"><b>Figuras</b><span>Uma IA procura formas humanas na câmera e desenha o esqueleto do que encontrar.</span></div>
+    <div class="cell"><b>Movimento</b><span>Portas, cortinas e sombras que se mexem acendem em vermelho no visor.</span></div>
+    <div class="cell"><b>Som</b><span>O microfone aprende o silêncio do lugar e marca cada estalo acima dele.</span></div>
+    <div class="cell"><b>Campo EMF</b><span>A bússola acusa distúrbios magnéticos com o celular parado.</span></div>
+    <div class="cell"><b>Vibração</b><span>Batidas e tremores no chão ou na mesa, medidos pelo acelerômetro.</span></div>
+    <div class="cell"><b>Luz</b><span>Oscilações bruscas de iluminação ficam registradas na hora.</span></div>
+  </div>
+
+  <h2>Como usar</h2>
+  <ol class="steps">
+    <li>Abra o app, toque em Iniciar captura e deixe o celular parado durante a calibração.</li>
+    <li>Apague as luzes. Toque duas vezes na tela para o modo tripé e espere.</li>
+    <li>Segure Capturar para gravar o vídeo com o visual de filmadora e poste o que aconteceu.</li>
+  </ol>
+
+  <h2 id="planos">Planos</h2>
+  <div class="plans">
+    <div class="plan"><h3>Grátis</h3><div class="price">R$ 0</div>
+      <ul><li>Sessões de 5 minutos</li><li>Vídeos de 30 segundos</li><li>Marca d’água grande</li></ul>
+      <a class="buy" href="espectro.html">Abrir o app</a></div>
+    <div class="plan"><h3>Básico</h3><div class="price">R$ 9,90 <small>pagamento único</small></div>
+      <ul><li>Sessões sem limite</li><li>Vídeos de até 5 minutos</li><li>Marca d’água discreta</li></ul>
+      <a class="buy" href="https://pay.hotmart.com/SEU-LINK-BASICO" target="_blank" rel="noopener">Comprar o Básico</a></div>
+    <div class="plan best"><h3>Premium</h3><div class="price">R$ 14,90 <small>pagamento único</small></div>
+      <ul><li>Tudo do Básico</li><li>Captador de som</li><li>Relatório e linha do tempo</li><li>Galeria no app</li></ul>
+      <a class="buy" href="https://pay.hotmart.com/SEU-LINK-PREMIUM" target="_blank" rel="noopener">Comprar o Premium</a></div>
+  </div>
+  <p class="sub" style="text-align:left">Depois da compra você recebe um código de acesso por e-mail. No app, toque em Tenho um código e cole.</p>
+
+  <h2>Perguntas</h2>
+  <details><summary>O app detecta espíritos de verdade?</summary><p>O Espectro é entretenimento. Ele mostra o que a câmera, o microfone e os sensores do celular captam, e uma IA que às vezes encontra figuras onde não há ninguém. O arrepio é por sua conta.</p></details>
+  <details><summary>Preciso instalar?</summary><p>Não. Abra o link no Safari ou no Chrome. Se quiser um ícone na tela, use Adicionar à Tela de Início.</p></details>
+  <details><summary>Minhas imagens vão para algum servidor?</summary><p>Não. Tudo é processado no seu celular. Veja a <a href="privacidade.html">política de privacidade</a>.</p></details>
+  <details><summary>Funciona no escuro total?</summary><p>A câmera precisa de um pouco de luz. O app amplifica a imagem automaticamente, mas no breu completo nenhuma câmera comum de celular enxerga.</p></details>
+  <details><summary>O código vale para outro celular?</summary><p>Sim, o código ativa o plano em qualquer aparelho em que você abrir o app.</p></details>
+
+  <footer>Espectro &nbsp; <a href="privacidade.html">Privacidade</a></footer>
+</main>
+</body>
+</html>

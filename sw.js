@@ -1,5 +1,5 @@
-const CACHE='espectro-v1';
-const CORE=['./espectro.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./apple-touch-icon.png',
+const CACHE='espectro-v2';
+const CORE=['./espectro.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./privacidade.html',
   'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
