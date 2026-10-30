@@ -195,7 +195,7 @@ async function detect(){
   if(busy||!model||video.readyState<2)return;
   busy=true;
   const vw=video.videoWidth,vh=video.videoHeight,s=192/Math.max(vw,vh),w=vw*s,h=vh*s,ox=(192-w)/2,oy=(192-h)/2;
-  nctx.fillStyle='#000';nctx.fillRect(0,0,192,192);nctx.drawImage(video,ox,oy,w,h);
+  nctx.fillStyle='#000';nctx.fillRect(0,0,192,192);ampDraw(nctx,ox,oy,w,h);
   const out=tf.tidy(()=>model.execute(tf.browser.fromPixels(net).expandDims(0)));
   const d=await out.data();out.dispose();
   const kp=[];for(let i=0;i<17;i++)kp.push({x:(d[i*3+1]*192-ox)/s,y:(d[i*3]*192-oy)/s,c:d[i*3+2]});
@@ -211,7 +211,7 @@ function drawDots(c){
   ctx.fillStyle='#020303';ctx.fillRect(0,0,W,H);
   const buckets=PAL.map(()=>new Path2D());
   for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
-    const i=(y*cols+x)*4, l=(px[i]*.3+px[i+1]*.59+px[i+2]*.11)/255;
+    const i=(y*cols+x)*4, l=Math.min(1,(px[i]*.3+px[i+1]*.59+px[i+2]*.11)/255*gain);
     if(l<.07)continue;
     const r=.5+l*step*.4, b=Math.min(7,Math.floor(l*8)), cx=x*step+step/2, cy=y*step+step/2;
     buckets[b].moveTo(cx+r,cy);buckets[b].arc(cx,cy,r,0,6.2832);
@@ -219,8 +219,7 @@ function drawDots(c){
   buckets.forEach((p,i)=>{ctx.fillStyle=PAL[i];ctx.fill(p)});
 }
 function drawNight(c){
-  ctx.globalCompositeOperation='source-over';
-  ctx.drawImage(video,c.dx,c.dy,c.vw*c.s,c.vh*c.s);
+  ampDraw(ctx,c.dx,c.dy,c.vw*c.s,c.vh*c.s);
   ctx.globalCompositeOperation='saturation';ctx.fillStyle='#808080';ctx.fillRect(0,0,W,H);
   ctx.globalCompositeOperation='multiply';ctx.fillStyle='#7FD9A4';ctx.fillRect(0,0,W,H);
   ctx.globalCompositeOperation='screen';ctx.fillStyle='rgba(18,40,30,.35)';ctx.fillRect(0,0,W,H);
@@ -349,6 +348,17 @@ $('#start').addEventListener('click',async()=>{
 $('#modeBtn').addEventListener('click',e=>{mode=mode==='ir'?'night':'ir';
   $('#modeTag').textContent=mode==='ir'?'Pontos IR':'Visão noturna';
   e.currentTarget.textContent=mode==='ir'?'Visão noturna':'Pontos IR'});
+/* Ganho digital automático: clareia a imagem em ambientes escuros */
+let gain=1;
+function modeLabel(){$('#modeTag').textContent=(mode==='ir'?'Pontos IR':'Visão noturna')+(gain>1.4?', ganho '+Math.round(gain)+'x':'')}
+function ampDraw(g,x,y,w,h){
+  const n=Math.floor(gain),f=gain-n;
+  g.globalCompositeOperation='source-over';g.globalAlpha=1;g.drawImage(video,x,y,w,h);
+  g.globalCompositeOperation='lighter';for(let i=1;i<n;i++)g.drawImage(video,x,y,w,h);
+  if(f>.05){g.globalAlpha=f;g.drawImage(video,x,y,w,h);g.globalAlpha=1}
+  g.globalCompositeOperation='source-over';
+}
+
 /* Movimento, luz e vibração */
 const mot=document.createElement('canvas'), mctx=mot.getContext('2d',{willReadFrequently:true}), sensTag=$('#sensTag');
 let mPrev=null, mHeat=null, mW=48, mH=0, mPct=0, mLight=0, mHits=0, mLast=0, lLast=0, mTick=0, vib=0, vibBase=.05, vLast=0, voiceT=-1e9;
@@ -361,6 +371,7 @@ function analyze(now,c){
   const px=mctx.getImageData(0,0,mW,mH).data,n=mW*mH,cur=new Float32Array(n);let sum=0;
   for(let i=0;i<n;i++){const l=px[i*4]*.3+px[i*4+1]*.59+px[i*4+2]*.11;cur[i]=l;sum+=l}
   const mean=sum/n;mLight=mean/255;
+  const tg=Math.min(8,Math.max(1,.3/Math.max(mLight,.02)));gain+=(tg-gain)*.12;modeLabel();
   if(!mHeat||mHeat.length!==n)mHeat=new Float32Array(n);
   if(mPrev){
     let pm=0;for(let i=0;i<n;i++)pm+=mPrev[i];pm/=n;
